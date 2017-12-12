@@ -17,8 +17,11 @@ import shutil
 def prepro(basedir):
     input=glob.glob(os.path.join(basedir,'sub-*','func','sub-*task-bart_bold.nii.gz'))
     for item in input:
-        output=item.strip('.nii.gz')+'_brain'
-        os.system('bet %s %s -F'%(item,output))
+        output=item.strip('.nii.gz')+'_brain.nii.gz'
+        if os.path.exists(output):
+            print(output+' already processed BET')
+        else:
+            os.system('bet %s %s -F'%(item,output))
         print('Done')
     
 def main():
